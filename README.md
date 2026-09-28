@@ -4,6 +4,9 @@ A small coding agent that edits Python, reads test feedback, and submits a patch
 The experiment asks whether the tools give a model enough accurate feedback to
 repair its work. The model chooses every live action; the evaluator decides success.
 
+Start with the [plain-language six-week guide](WEEK_BY_WEEK.md). It explains what
+to build each week, why it matters, how to run it, and what the measured results mean.
+
 ```text
 issue + source -> model -> view / edit / test -> observation -> model
                         -> submit -> separate behavioral evaluation
@@ -113,6 +116,32 @@ insertion. It never submitted. Accurate test feedback and syntax checks are usef
 but they do not guarantee progress or termination. A code-correctness score alone
 would hide the second failure. The next experiment should change the feedback for
 stalls while holding the model and action budget fixed. See [the traces](FAILURES.md).
+
+## Week 2: checked versus unchecked edits
+
+Ten additional authored tasks, two edit modes, three attempts per task and mode.
+The model, tasks, action budget, and system prompt are fixed. The syntax check and
+its truthful tool description change together.
+
+| Edit mode | Passed / attempts | Mean actions |
+| --- | ---: | ---: |
+| Checked | 30/30 (100%) | 4.10 |
+| Unchecked | 29/30 (96.7%) | 4.57 |
+
+[Per-task table](results/week2-edit-check/summary.md),
+[all 60 traces](results/week2-edit-check/), and [interpretation](EXPERIMENTS.md).
+The failed unchecked transpose attempt accumulated invalid indentation and never
+submitted. No checked attempt triggered syntax rejection. This does **not** show
+that the check caused the score difference: different trajectories and the changed
+tool description also matter. Three repetitions of ten tasks are still ten tasks.
+
+```sh
+python -m aci_patch_agent.ablation --output runs/edit-check
+python -m aci_patch_agent.ablation --report-only --output results/week2-edit-check
+```
+
+The first command makes live paid calls; the second rebuilds the saved report offline.
+The five original development tasks remain separate from these ten evaluation tasks.
 
 ## Check the implementation
 

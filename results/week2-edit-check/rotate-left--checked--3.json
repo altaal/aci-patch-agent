@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "task": "rotate-left",
+  "issue": "Rotate a list left by k positions, wrapping around. Negative k rotates right. Empty input returns []. k must be an int, excluding bool; otherwise raise TypeError.",
+  "created_at": "2026-09-28T23:33:56.617771+00:00",
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "max_actions": 15,
+  "max_total_tokens": 32000,
+  "status": "passed",
+  "passed": true,
+  "submitted": true,
+  "actions": 4,
+  "model_calls": 4,
+  "prompt_tokens": 2676,
+  "completion_tokens": 155,
+  "reported_cost_usd": 0.00041134,
+  "seconds": 3.266,
+  "initial_source": "def rotate_left(items, k):\n    return items[k:] + items[:k]\n",
+  "final_source": "def rotate_left(items, k):\n    if not isinstance(k, int) or isinstance(k, bool):\n        raise TypeError(\"k must be an int, excluding bool\")\n    if not items:\n        return []\n    k = k % len(items) if items else 0\n    return items[k:] + items[:k]\n",
+  "evaluation": {
+    "passed": true,
+    "checks": 6,
+    "failures": [],
+    "error": null
+  },
+  "patch": "--- a/solution.py\n+++ b/solution.py\n@@ -1,2 +1,7 @@\n def rotate_left(items, k):\n+    if not isinstance(k, int) or isinstance(k, bool):\n+        raise TypeError(\"k must be an int, excluding bool\")\n+    if not items:\n+        return []\n+    k = k % len(items) if items else 0\n     return items[k:] + items[:k]\n",
+  "responses": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_3c122825068e4f75a8455b42",
+            "function": {
+              "name": "view",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 503,
+        "completion_tokens": 14,
+        "total_tokens": 517,
+        "cost": 6.067e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.067e-05,
+          "upstream_inference_prompt_cost": 4.527e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638433-sTFXzhfQHLTK7Pvnwqy7"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": "\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_fe3e1fde70a14bf0af0a65b0",
+            "function": {
+              "name": "edit",
+              "arguments": "{\"start\": 1, \"end\": 2, \"replacement\": \"def rotate_left(items, k):\\n    if not isinstance(k, int) or isinstance(k, bool):\\n        raise TypeError(\\\"k must be an int, excluding bool\\\")\\n    if not items:\\n        return []\\n    k = k % len(items) if items else 0\\n    return items[k:] + items[:k]\"}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 563,
+        "completion_tokens": 113,
+        "total_tokens": 676,
+        "cost": 0.00017497,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00017497,
+          "upstream_inference_prompt_cost": 5.067e-05,
+          "upstream_inference_completions_cost": 0.0001243
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638433-rpaS6UnifsrV2lzzu0Qg"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_475d243349bf4441a69ea11f",
+            "function": {
+              "name": "test",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 781,
+        "completion_tokens": 14,
+        "total_tokens": 795,
+        "cost": 8.569e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.569e-05,
+          "upstream_inference_prompt_cost": 7.029e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638434-mQWfofwQjtlfSKlHzdSV"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_d66a24d4673c473298a9bf8e",
+            "function": {
+              "name": "submit",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 829,
+        "completion_tokens": 14,
+        "total_tokens": 843,
+        "cost": 9.001e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 9.001e-05,
+          "upstream_inference_prompt_cost": 7.461e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638436-V8Af8cV7DqmQaHCDDeJE"
+    }
+  ],
+  "events": [
+    {
+      "action": 1,
+      "response": 1,
+      "tool": "view",
+      "arguments": {},
+      "observation": {
+        "source": "1: def rotate_left(items, k):\n2:     return items[k:] + items[:k]",
+        "total_lines": 2
+      }
+    },
+    {
+      "action": 2,
+      "response": 2,
+      "tool": "edit",
+      "arguments": {
+        "start": 1,
+        "end": 2,
+        "replacement": "def rotate_left(items, k):\n    if not isinstance(k, int) or isinstance(k, bool):\n        raise TypeError(\"k must be an int, excluding bool\")\n    if not items:\n        return []\n    k = k % len(items) if items else 0\n    return items[k:] + items[:k]"
+      },
+      "observation": {
+        "accepted": true,
+        "source": "1: def rotate_left(items, k):\n2:     if not isinstance(k, int) or isinstance(k, bool):\n3:         raise TypeError(\"k must be an int, excluding bool\")\n4:     if not items:\n5:         return []\n6:     k = k % len(items) if items else 0\n7:     return items[k:] + items[:k]",
+        "total_lines": 7
+      }
+    },
+    {
+      "action": 3,
+      "response": 3,
+      "tool": "test",
+      "arguments": {},
+      "observation": {
+        "passed": true,
+        "checks": 2,
+        "failures": [],
+        "error": null
+      }
+    },
+    {
+      "action": 4,
+      "response": 4,
+      "tool": "submit",
+      "arguments": {},
+      "observation": {
+        "submitted": true
+      }
+    }
+  ],
+  "id": "rotate-left--checked--3",
+  "condition": "checked",
+  "repeat": 3
+}

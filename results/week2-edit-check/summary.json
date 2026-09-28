@@ -1,0 +1,24 @@
+{
+  "checked": {
+    "passed": 30,
+    "attempts": 30,
+    "pass_rate": 1.0,
+    "mean_actions": 4.1,
+    "actions_observed": 30,
+    "fault_exposed": 0,
+    "passed_when_exposed": 0,
+    "failed_actions": 0,
+    "repeated_actions": 0
+  },
+  "unchecked": {
+    "passed": 29,
+    "attempts": 30,
+    "pass_rate": 0.9666666666666667,
+    "mean_actions": 4.566666666666666,
+    "actions_observed": 30,
+    "fault_exposed": 0,
+    "passed_when_exposed": 0,
+    "failed_actions": 0,
+    "repeated_actions": 0
+  }
+}

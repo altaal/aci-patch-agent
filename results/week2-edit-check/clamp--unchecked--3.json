@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "task": "clamp",
+  "issue": "Clamp a number to the inclusive range [low, high]. Raise ValueError if low > high.",
+  "created_at": "2026-09-28T23:33:42.316327+00:00",
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "max_actions": 15,
+  "max_total_tokens": 32000,
+  "status": "passed",
+  "passed": true,
+  "submitted": true,
+  "actions": 5,
+  "model_calls": 5,
+  "prompt_tokens": 3206,
+  "completion_tokens": 162,
+  "reported_cost_usd": 0.00046674,
+  "seconds": 3.943,
+  "initial_source": "def clamp(value, low, high):\n    return min(value, high)\n",
+  "final_source": "def clamp(value, low, high):\n    if low > high:\n        raise ValueError(\"low > high\")\n    return max(low, min(value, high))\n",
+  "evaluation": {
+    "passed": true,
+    "checks": 6,
+    "failures": [],
+    "error": null
+  },
+  "patch": "--- a/solution.py\n+++ b/solution.py\n@@ -1,2 +1,4 @@\n def clamp(value, low, high):\n-    return min(value, high)\n+    if low > high:\n+        raise ValueError(\"low > high\")\n+    return max(low, min(value, high))\n",
+  "responses": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_9a7b55e8c5414e91b4dbf429",
+            "function": {
+              "name": "view",
+              "arguments": "{\"start\": 1, \"end\": 1}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 488,
+        "completion_tokens": 35,
+        "total_tokens": 523,
+        "cost": 8.242e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.242e-05,
+          "upstream_inference_prompt_cost": 4.392e-05,
+          "upstream_inference_completions_cost": 3.85e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638418-bv0LjIaX2ifJbivDMY3V"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_f1662c813aa14828982a276a",
+            "function": {
+              "name": "view",
+              "arguments": "{\"start\": 1, \"end\": 2}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 547,
+        "completion_tokens": 24,
+        "total_tokens": 571,
+        "cost": 7.563e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7.563e-05,
+          "upstream_inference_prompt_cost": 4.923e-05,
+          "upstream_inference_completions_cost": 2.64e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638419-qxfWKzNe23Fkyftu4u7n"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_f62a442245384911801da709",
+            "function": {
+              "name": "edit",
+              "arguments": "{\"start\": 1, \"end\": 2, \"replacement\": \"def clamp(value, low, high):\\n    if low > high:\\n        raise ValueError(\\\"low > high\\\")\\n    return max(low, min(value, high))\"}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 615,
+        "completion_tokens": 76,
+        "total_tokens": 691,
+        "cost": 0.00013895,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00013895,
+          "upstream_inference_prompt_cost": 5.535e-05,
+          "upstream_inference_completions_cost": 8.36e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638419-idcziVrVUCKGXBUXtujK"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_b7bbb1babcb549b1bf786314",
+            "function": {
+              "name": "test",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 754,
+        "completion_tokens": 14,
+        "total_tokens": 768,
+        "cost": 8.326e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.326e-05,
+          "upstream_inference_prompt_cost": 6.786e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638420-g9UMazDB3aT4jYmuUL6R"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_c7b5dc7cfc8a4d9f9e555c52",
+            "function": {
+              "name": "submit",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 802,
+        "completion_tokens": 13,
+        "total_tokens": 815,
+        "cost": 8.648e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.648e-05,
+          "upstream_inference_prompt_cost": 7.218e-05,
+          "upstream_inference_completions_cost": 1.43e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638421-9nxGSiu4DUuJBTT5Bz1d"
+    }
+  ],
+  "events": [
+    {
+      "action": 1,
+      "response": 1,
+      "tool": "view",
+      "arguments": {
+        "start": 1,
+        "end": 1
+      },
+      "observation": {
+        "source": "1: def clamp(value, low, high):",
+        "total_lines": 2
+      }
+    },
+    {
+      "action": 2,
+      "response": 2,
+      "tool": "view",
+      "arguments": {
+        "start": 1,
+        "end": 2
+      },
+      "observation": {
+        "source": "1: def clamp(value, low, high):\n2:     return min(value, high)",
+        "total_lines": 2
+      }
+    },
+    {
+      "action": 3,
+      "response": 3,
+      "tool": "edit",
+      "arguments": {
+        "start": 1,
+        "end": 2,
+        "replacement": "def clamp(value, low, high):\n    if low > high:\n        raise ValueError(\"low > high\")\n    return max(low, min(value, high))"
+      },
+      "observation": {
+        "accepted": true,
+        "source": "1: def clamp(value, low, high):\n2:     if low > high:\n3:         raise ValueError(\"low > high\")\n4:     return max(low, min(value, high))",
+        "total_lines": 4
+      }
+    },
+    {
+      "action": 4,
+      "response": 4,
+      "tool": "test",
+      "arguments": {},
+      "observation": {
+        "passed": true,
+        "checks": 2,
+        "failures": [],
+        "error": null
+      }
+    },
+    {
+      "action": 5,
+      "response": 5,
+      "tool": "submit",
+      "arguments": {},
+      "observation": {
+        "submitted": true
+      }
+    }
+  ],
+  "id": "clamp--unchecked--3",
+  "condition": "unchecked",
+  "repeat": 3
+}

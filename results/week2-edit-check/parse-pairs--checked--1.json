@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "task": "parse-pairs",
+  "issue": "Parse comma-separated key:value items into a dict. Strip whitespace from keys and values; split each item at its first colon. Empty or whitespace-only input returns {}. Duplicate keys use the last value. Raise ValueError for a missing colon or empty key.",
+  "created_at": "2026-09-28T23:32:26.746625+00:00",
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "max_actions": 15,
+  "max_total_tokens": 32000,
+  "status": "passed",
+  "passed": true,
+  "submitted": true,
+  "actions": 4,
+  "model_calls": 4,
+  "prompt_tokens": 3024,
+  "completion_tokens": 210,
+  "reported_cost_usd": 0.00050316,
+  "seconds": 2.796,
+  "initial_source": "def parse_pairs(text):\n    return dict(item.split(':') for item in text.split(','))\n",
+  "final_source": "def parse_pairs(text):\n    if not text or text.strip() == '':\n        return {}\n    result = {}\n    for item in text.split(','):\n        item = item.strip()\n        if not item:\n            continue\n        if ':' not in item:\n            raise ValueError(\"Missing colon in key:value pair\")\n        key, value = item.split(':', 1)\n        key = key.strip()\n        value = value.strip()\n        if not key:\n            raise ValueError(\"Empty key in key:value pair\")\n        result[key] = value\n    return result\n",
+  "evaluation": {
+    "passed": true,
+    "checks": 7,
+    "failures": [],
+    "error": null
+  },
+  "patch": "--- a/solution.py\n+++ b/solution.py\n@@ -1,2 +1,17 @@\n def parse_pairs(text):\n-    return dict(item.split(':') for item in text.split(','))\n+    if not text or text.strip() == '':\n+        return {}\n+    result = {}\n+    for item in text.split(','):\n+        item = item.strip()\n+        if not item:\n+            continue\n+        if ':' not in item:\n+            raise ValueError(\"Missing colon in key:value pair\")\n+        key, value = item.split(':', 1)\n+        key = key.strip()\n+        value = value.strip()\n+        if not key:\n+            raise ValueError(\"Empty key in key:value pair\")\n+        result[key] = value\n+    return result\n",
+  "responses": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_d70ed2801beb4568bca66a59",
+            "function": {
+              "name": "view",
+              "arguments": "{\"start\": 1, \"end\": 1}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 522,
+        "completion_tokens": 24,
+        "total_tokens": 546,
+        "cost": 7.338e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7.338e-05,
+          "upstream_inference_prompt_cost": 4.698e-05,
+          "upstream_inference_completions_cost": 2.64e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638344-n0mh0tRNVjrvMwAfPBlr"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_c1ac8ee9ce5048d1aee867e9",
+            "function": {
+              "name": "edit",
+              "arguments": "{\"start\": 1, \"end\": 2, \"replacement\": \"def parse_pairs(text):\\n    if not text or text.strip() == '':\\n        return {}\\n    result = {}\\n    for item in text.split(','):\\n        item = item.strip()\\n        if not item:\\n            continue\\n        if ':' not in item:\\n            raise ValueError(\\\"Missing colon in key:value pair\\\")\\n        key, value = item.split(':', 1)\\n        key = key.strip()\\n        value = value.strip()\\n        if not key:\\n            raise ValueError(\\\"Empty key in key:value pair\\\")\\n        result[key] = value\\n    return result\"}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 578,
+        "completion_tokens": 159,
+        "total_tokens": 737,
+        "cost": 0.00022692,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00022692,
+          "upstream_inference_prompt_cost": 5.202e-05,
+          "upstream_inference_completions_cost": 0.0001749
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638344-s8c36amrUmIvFwxsj6mG"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_9fbebfe1ad49494ca567b59b",
+            "function": {
+              "name": "test",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 938,
+        "completion_tokens": 14,
+        "total_tokens": 952,
+        "cost": 9.982e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 9.982e-05,
+          "upstream_inference_prompt_cost": 8.442e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638345-7Dtv1exWA7DDg0KgIJqF"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_c2b5db3812c34f81931b51f5",
+            "function": {
+              "name": "submit",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 986,
+        "completion_tokens": 13,
+        "total_tokens": 999,
+        "cost": 0.00010304,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00010304,
+          "upstream_inference_prompt_cost": 8.874e-05,
+          "upstream_inference_completions_cost": 1.43e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638346-fYf6wpeGTM9v6BdA3GDG"
+    }
+  ],
+  "events": [
+    {
+      "action": 1,
+      "response": 1,
+      "tool": "view",
+      "arguments": {
+        "start": 1,
+        "end": 1
+      },
+      "observation": {
+        "source": "1: def parse_pairs(text):",
+        "total_lines": 2
+      }
+    },
+    {
+      "action": 2,
+      "response": 2,
+      "tool": "edit",
+      "arguments": {
+        "start": 1,
+        "end": 2,
+        "replacement": "def parse_pairs(text):\n    if not text or text.strip() == '':\n        return {}\n    result = {}\n    for item in text.split(','):\n        item = item.strip()\n        if not item:\n            continue\n        if ':' not in item:\n            raise ValueError(\"Missing colon in key:value pair\")\n        key, value = item.split(':', 1)\n        key = key.strip()\n        value = value.strip()\n        if not key:\n            raise ValueError(\"Empty key in key:value pair\")\n        result[key] = value\n    return result"
+      },
+      "observation": {
+        "accepted": true,
+        "source": "1: def parse_pairs(text):\n2:     if not text or text.strip() == '':\n3:         return {}\n4:     result = {}\n5:     for item in text.split(','):\n6:         item = item.strip()\n7:         if not item:\n8:             continue\n9:         if ':' not in item:\n10:             raise ValueError(\"Missing colon in key:value pair\")\n11:         key, value = item.split(':', 1)\n12:         key = key.strip()\n13:         value = value.strip()\n14:         if not key:\n15:             raise ValueError(\"Empty key in key:value pair\")\n16:         result[key] = value\n17:     return result",
+        "total_lines": 17
+      }
+    },
+    {
+      "action": 3,
+      "response": 3,
+      "tool": "test",
+      "arguments": {},
+      "observation": {
+        "passed": true,
+        "checks": 2,
+        "failures": [],
+        "error": null
+      }
+    },
+    {
+      "action": 4,
+      "response": 4,
+      "tool": "submit",
+      "arguments": {},
+      "observation": {
+        "submitted": true
+      }
+    }
+  ],
+  "id": "parse-pairs--checked--1",
+  "condition": "checked",
+  "repeat": 1
+}

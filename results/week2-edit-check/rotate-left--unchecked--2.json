@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "task": "rotate-left",
+  "issue": "Rotate a list left by k positions, wrapping around. Negative k rotates right. Empty input returns []. k must be an int, excluding bool; otherwise raise TypeError.",
+  "created_at": "2026-09-28T23:33:11.037966+00:00",
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "max_actions": 15,
+  "max_total_tokens": 32000,
+  "status": "passed",
+  "passed": true,
+  "submitted": true,
+  "actions": 4,
+  "model_calls": 4,
+  "prompt_tokens": 4880,
+  "completion_tokens": 1242,
+  "reported_cost_usd": 0.0018054,
+  "seconds": 11.009,
+  "initial_source": "def rotate_left(items, k):\n    return items[k:] + items[:k]\n",
+  "final_source": "def rotate_left(items, k):\n    if not isinstance(k, int) or isinstance(k, bool):\n        raise TypeError(\"k must be an int, excluding bool\")\n    if not items:\n        return []\n    k = k % len(items) if items else 0\n    return items[k:] + items[:k]\n",
+  "evaluation": {
+    "passed": true,
+    "checks": 6,
+    "failures": [],
+    "error": null
+  },
+  "patch": "--- a/solution.py\n+++ b/solution.py\n@@ -1,2 +1,7 @@\n def rotate_left(items, k):\n+    if not isinstance(k, int) or isinstance(k, bool):\n+        raise TypeError(\"k must be an int, excluding bool\")\n+    if not items:\n+        return []\n+    k = k % len(items) if items else 0\n     return items[k:] + items[:k]\n",
+  "responses": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_939ea95bf50c42c9963566a3",
+            "function": {
+              "name": "view",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 504,
+        "completion_tokens": 14,
+        "total_tokens": 518,
+        "cost": 6.076e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.076e-05,
+          "upstream_inference_prompt_cost": 4.536e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638380-WTqgpFh6w41tyZESSN2x"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": "        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n        \n\n\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_c078068b4fe5419ebc5d4d2f",
+            "function": {
+              "name": "edit",
+              "arguments": "{\"start\": 1, \"end\": 2, \"replacement\": \"def rotate_left(items, k):\\n    if not isinstance(k, int) or isinstance(k, bool):\\n        raise TypeError(\\\"k must be an int, excluding bool\\\")\\n    if not items:\\n        return []\\n    k = k % len(items) if items else 0\\n    return items[k:] + items[:k]\"}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 564,
+        "completion_tokens": 1200,
+        "total_tokens": 1764,
+        "cost": 0.00137076,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00137076,
+          "upstream_inference_prompt_cost": 5.076e-05,
+          "upstream_inference_completions_cost": 0.00132
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638381-wGEcMI7Vz7u92QFTgSgw"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_83afa390d93f4e49a8e2eb72",
+            "function": {
+              "name": "test",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 1882,
+        "completion_tokens": 14,
+        "total_tokens": 1896,
+        "cost": 0.00018478,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00018478,
+          "upstream_inference_prompt_cost": 0.00016938,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638389-I4Ev8qJXu4SqnX7nJiQp"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_645f2263b4af47aa82531b4b",
+            "function": {
+              "name": "submit",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 1930,
+        "completion_tokens": 14,
+        "total_tokens": 1944,
+        "cost": 0.0001891,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001891,
+          "upstream_inference_prompt_cost": 0.0001737,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790638389-Bt3wabp0cPIDmftpuFer"
+    }
+  ],
+  "events": [
+    {
+      "action": 1,
+      "response": 1,
+      "tool": "view",
+      "arguments": {},
+      "observation": {
+        "source": "1: def rotate_left(items, k):\n2:     return items[k:] + items[:k]",
+        "total_lines": 2
+      }
+    },
+    {
+      "action": 2,
+      "response": 2,
+      "tool": "edit",
+      "arguments": {
+        "start": 1,
+        "end": 2,
+        "replacement": "def rotate_left(items, k):\n    if not isinstance(k, int) or isinstance(k, bool):\n        raise TypeError(\"k must be an int, excluding bool\")\n    if not items:\n        return []\n    k = k % len(items) if items else 0\n    return items[k:] + items[:k]"
+      },
+      "observation": {
+        "accepted": true,
+        "source": "1: def rotate_left(items, k):\n2:     if not isinstance(k, int) or isinstance(k, bool):\n3:         raise TypeError(\"k must be an int, excluding bool\")\n4:     if not items:\n5:         return []\n6:     k = k % len(items) if items else 0\n7:     return items[k:] + items[:k]",
+        "total_lines": 7
+      }
+    },
+    {
+      "action": 3,
+      "response": 3,
+      "tool": "test",
+      "arguments": {},
+      "observation": {
+        "passed": true,
+        "checks": 2,
+        "failures": [],
+        "error": null
+      }
+    },
+    {
+      "action": 4,
+      "response": 4,
+      "tool": "submit",
+      "arguments": {},
+      "observation": {
+        "submitted": true
+      }
+    }
+  ],
+  "id": "rotate-left--unchecked--2",
+  "condition": "unchecked",
+  "repeat": 2
+}
