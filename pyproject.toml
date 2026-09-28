@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aci-patch-agent"
+version = "0.1.0"
+description = "A small coding agent with checked edits and inspectable evaluation traces"
+requires-python = ">=3.11"
+dependencies = []
+license = "MIT"
+
+[project.scripts]
+aci-patch-agent = "aci_patch_agent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["aci_patch_agent*"]
