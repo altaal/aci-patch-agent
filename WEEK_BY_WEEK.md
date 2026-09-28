@@ -249,6 +249,9 @@ configuration, and data provenance are public.
 **Delivered evidence:** see [preference data](https://github.com/altaal/agent-edit-dpo/tree/main/data)
 and [training record](https://github.com/altaal/agent-edit-dpo/tree/main/training/main).
 The final training measurements are recorded in the third repo's README and metrics.
+The recorded run completed 40 steps in 111.39 seconds, changed 96 trainable tensors,
+and saved a 2.2 MB adapter. It trained 540,672 parameters while leaving base weights
+frozen. These measurements establish that training ran; week 6 tests whether it helped.
 
 **STOP reading until this gate:** GRPO, PPO, RLHF courses, reward-model papers,
 distributed training, and model rankings. If needed, read only the original DPO
