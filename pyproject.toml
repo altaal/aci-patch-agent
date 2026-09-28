@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aci-patch-agent"
-version = "0.1.0"
+version = "0.2.0"
 description = "A small coding agent with checked edits and inspectable evaluation traces"
 requires-python = ">=3.11"
 dependencies = []

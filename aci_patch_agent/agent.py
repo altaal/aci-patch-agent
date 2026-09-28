@@ -18,8 +18,9 @@ Keep the named function and signature. Use only Python's standard library.
 You cannot edit the evaluator. Submit the code, not a verbal claim of success."""
 
 
-def run_task(task, client, sandbox, *, max_actions=15, max_total_tokens=32_000):
-    workspace = Workspace(task, sandbox)
+def run_task(task, client, sandbox, *, max_actions=15, max_total_tokens=32_000,
+             workspace_factory=Workspace):
+    workspace = workspace_factory(task, sandbox)
     started = time.monotonic()
     messages = [{"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": f"Task: {task.id}\n{task.issue}\n\nsolution.py:\n{task.source}"}]

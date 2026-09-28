@@ -1,5 +1,7 @@
 """The model can view and change one source string, never evaluation code."""
 
+from copy import deepcopy
+
 from .tasks import Task
 
 
@@ -20,10 +22,18 @@ TOOLS = [
 ]
 
 
+def tool_schemas(checked=True):
+    schemas = deepcopy(TOOLS)
+    if not checked:
+        schemas[1]["function"]["description"] = "Replace an inclusive line range. Syntax is not checked; use test to check behavior."
+    return schemas
+
+
 class Workspace:
-    def __init__(self, task: Task, sandbox):
+    def __init__(self, task: Task, sandbox, *, checked=True):
         self.task, self.sandbox = task, sandbox
         self.source = task.source
+        self.checked = checked
 
     def execute(self, name, args):
         if not isinstance(args, dict):
@@ -44,10 +54,11 @@ class Workspace:
             candidate = "\n".join(lines[:start-1] + args["replacement"].splitlines() + lines[end:]) + "\n"
             if len(candidate.encode()) > 16_384:
                 return {"error": "Source exceeds 16 KiB. Source unchanged."}
-            try:
-                compile(candidate, "solution.py", "exec")
-            except (SyntaxError, ValueError) as error:
-                return {"accepted": False, "error": f"{type(error).__name__}: {error}. Source unchanged."}
+            if self.checked:
+                try:
+                    compile(candidate, "solution.py", "exec")
+                except (SyntaxError, ValueError) as error:
+                    return {"accepted": False, "error": f"{type(error).__name__}: {error}. Source unchanged."}
             if not candidate.strip():
                 return {"error": "Empty source is not accepted. Source unchanged."}
             self.source = candidate

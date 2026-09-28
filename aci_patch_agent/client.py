@@ -15,14 +15,15 @@ class ModelError(RuntimeError):
 
 
 class OpenRouterClient:
-    def __init__(self, model=DEFAULT_MODEL, max_tokens=1200, temperature=0):
+    def __init__(self, model=DEFAULT_MODEL, max_tokens=1200, temperature=0, tools=None):
         self.key = os.environ.get("OPENROUTER_API_KEY")
         if not self.key:
             raise ModelError("Set OPENROUTER_API_KEY in your environment.")
         self.model, self.max_tokens, self.temperature = model, max_tokens, temperature
+        self.tools = tools if tools is not None else TOOLS
 
     def complete(self, messages):
-        body = {"model": self.model, "messages": messages, "tools": TOOLS,
+        body = {"model": self.model, "messages": messages, "tools": self.tools,
                 "tool_choice": "required", "temperature": self.temperature,
                 "max_tokens": self.max_tokens}
         req = request.Request("https://openrouter.ai/api/v1/chat/completions",
