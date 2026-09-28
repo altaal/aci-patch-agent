@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-28T23:21:51.399390+00:00",
+  "tasks": [
+    "normalize-method"
+  ],
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "temperature": 0,
+  "max_actions": 15,
+  "max_tokens": 1200,
+  "max_total_tokens": 32000,
+  "image": {
+    "image": "python@sha256:da047cb8f9d1d98e5c070f5300ba9f7274e33b8fc0e5be5ed88740aed1b95ba9",
+    "image_id": "sha256:da047cb8f9d1d98e5c070f5300ba9f7274e33b8fc0e5be5ed88740aed1b95ba9",
+    "repo_digests": [
+      "python@sha256:da047cb8f9d1d98e5c070f5300ba9f7274e33b8fc0e5be5ed88740aed1b95ba9"
+    ],
+    "architecture": "arm64"
+  },
+  "git_revision": "98615754958c2ca93c7e3cfe23566e7f49d1180a",
+  "source_sha256": {
+    "__init__.py": "2cfbd09633bfa79267532f01afdace279675f99521095cfedc9e2d5130d9204d",
+    "__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "agent.py": "ecbdb1763a771f1ce821df904560d255e0003aa5e0e7a0158abd51af6b8038c6",
+    "cli.py": "c59dd885d76d0355c34d9d9b187b20544e0cedca93b9d96e5b57b35d9bd8ab16",
+    "client.py": "449cd6f5782a8cf9265ef52ee0af9ab2a32fec29c43d9f83be441ff795029b97",
+    "report.py": "94a81d3a9dfa871a518593c776fb48123570072771e06cba355a30f399a5ffa5",
+    "sandbox.py": "a9ae142e23c59dfb87c540355417e5356d4d6e345e673df86d8c097c0c06bb6a",
+    "tasks.py": "b2586719cb3aa9b98d4d3774878143a612b0586fd364c805a792570511e01c8e",
+    "tools.py": "c2c5cc54f62d40a2ead4ad0a70d7a33b0fc6638a0ff4a15e3b99288c5b954f47"
+  },
+  "task_sha256": "a7abb403d0c5318b75d148504f8f15e191a879e32583c337ec8e7088e5e57638",
+  "system_prompt": "You repair one small Python function in solution.py.\nUse view to read numbered lines, edit to replace an inclusive range, test to run\nexamples, and submit when finished. Make exactly one tool call per response.\nTool observations describe the actual current state. Correct a refused edit using\nthat feedback. Tests check only examples; implement the entire issue specification.\nKeep the named function and signature. Use only Python's standard library.\nYou cannot edit the evaluator. Submit the code, not a verbal claim of success.",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "view",
+        "description": "Show numbered lines of solution.py.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "integer"
+            },
+            "end": {
+              "type": "integer"
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "edit",
+        "description": "Replace an inclusive line range. Invalid Python syntax is rejected without changing the source.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "integer"
+            },
+            "end": {
+              "type": "integer"
+            },
+            "replacement": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "start",
+            "end",
+            "replacement"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "test",
+        "description": "Run example checks in an isolated container. Passing examples is not final success.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "submit",
+        "description": "Finish and submit the current source for separate evaluation.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}
