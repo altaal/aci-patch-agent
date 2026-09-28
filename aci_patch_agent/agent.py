@@ -19,11 +19,12 @@ You cannot edit the evaluator. Submit the code, not a verbal claim of success.""
 
 
 def run_task(task, client, sandbox, *, max_actions=15, max_total_tokens=32_000,
-             workspace_factory=Workspace):
+             workspace_factory=Workspace, show_initial_source=True):
     workspace = workspace_factory(task, sandbox)
     started = time.monotonic()
-    messages = [{"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": f"Task: {task.id}\n{task.issue}\n\nsolution.py:\n{task.source}"}]
+    initial = f"Task: {task.id}\n{task.issue}\n\n"
+    initial += f"solution.py:\n{task.source}" if show_initial_source else "Use view to read solution.py."
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": initial}]
     events, responses = [], []
     actions = prompt_tokens = completion_tokens = 0
     costs = []
@@ -82,6 +83,7 @@ def run_task(task, client, sandbox, *, max_actions=15, max_total_tokens=32_000,
     return {"schema_version": 1, "task": task.id, "issue": task.issue,
             "created_at": datetime.now(timezone.utc).isoformat(),
             "model": getattr(client, "model", "scripted-test"),
+            "show_initial_source": show_initial_source,
             "max_actions": max_actions, "max_total_tokens": max_total_tokens,
             "status": status, "passed": submitted and evaluation["passed"],
             "submitted": submitted, "actions": actions, "model_calls": len(responses),
