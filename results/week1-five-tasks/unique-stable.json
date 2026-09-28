@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "task": "unique-stable",
+  "issue": "Remove duplicate items from a list while keeping the first occurrence order. Determine duplicates using Python equality, including unhashable lists and dicts. Return a list; empty input returns [].",
+  "created_at": "2026-09-28T23:20:35.024100+00:00",
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "max_actions": 15,
+  "max_total_tokens": 32000,
+  "status": "passed",
+  "passed": true,
+  "submitted": true,
+  "actions": 4,
+  "model_calls": 4,
+  "prompt_tokens": 2573,
+  "completion_tokens": 129,
+  "reported_cost_usd": 0.00037347,
+  "seconds": 3.511,
+  "initial_source": "def unique_stable(items):\n    return list(set(items))\n",
+  "final_source": "def unique_stable(items):\n    seen = []\n    result = []\n    for item in items:\n        if item not in seen:\n            seen.append(item)\n            result.append(item)\n    return result\n",
+  "evaluation": {
+    "passed": true,
+    "checks": 7,
+    "failures": [],
+    "error": null
+  },
+  "patch": "--- a/solution.py\n+++ b/solution.py\n@@ -1,2 +1,8 @@\n def unique_stable(items):\n-    return list(set(items))\n+    seen = []\n+    result = []\n+    for item in items:\n+        if item not in seen:\n+            seen.append(item)\n+            result.append(item)\n+    return result\n",
+  "responses": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_230d369ddf0e4c69b58b0540",
+            "function": {
+              "name": "view",
+              "arguments": "{\"start\": 1, \"end\": 1}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 502,
+        "completion_tokens": 24,
+        "total_tokens": 526,
+        "cost": 7.158e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7.158e-05,
+          "upstream_inference_prompt_cost": 4.518e-05,
+          "upstream_inference_completions_cost": 2.64e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637631-ECgxc7prAjVv4NdAcSHF"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_95d6175f7cf142a080bd3666",
+            "function": {
+              "name": "edit",
+              "arguments": "{\"start\": 1, \"end\": 2, \"replacement\": \"def unique_stable(items):\\n    seen = []\\n    result = []\\n    for item in items:\\n        if item not in seen:\\n            seen.append(item)\\n            result.append(item)\\n    return result\"}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 559,
+        "completion_tokens": 78,
+        "total_tokens": 637,
+        "cost": 0.00013611,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00013611,
+          "upstream_inference_prompt_cost": 5.031e-05,
+          "upstream_inference_completions_cost": 8.58e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637632-ONiqwcCDfyD3TQzaVrGa"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_9abe5feaaee04e9591980261",
+            "function": {
+              "name": "test",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 732,
+        "completion_tokens": 14,
+        "total_tokens": 746,
+        "cost": 8.128e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.128e-05,
+          "upstream_inference_prompt_cost": 6.588e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637632-vCYIXfCQgpg3Pg6lSuVo"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_314e10d490af4bd7aef92851",
+            "function": {
+              "name": "submit",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 780,
+        "completion_tokens": 13,
+        "total_tokens": 793,
+        "cost": 8.45e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.45e-05,
+          "upstream_inference_prompt_cost": 7.02e-05,
+          "upstream_inference_completions_cost": 1.43e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637633-t465RedGv8FIBeyCkR5N"
+    }
+  ],
+  "events": [
+    {
+      "action": 1,
+      "response": 1,
+      "tool": "view",
+      "arguments": {
+        "start": 1,
+        "end": 1
+      },
+      "observation": {
+        "source": "1: def unique_stable(items):",
+        "total_lines": 2
+      }
+    },
+    {
+      "action": 2,
+      "response": 2,
+      "tool": "edit",
+      "arguments": {
+        "start": 1,
+        "end": 2,
+        "replacement": "def unique_stable(items):\n    seen = []\n    result = []\n    for item in items:\n        if item not in seen:\n            seen.append(item)\n            result.append(item)\n    return result"
+      },
+      "observation": {
+        "accepted": true,
+        "source": "1: def unique_stable(items):\n2:     seen = []\n3:     result = []\n4:     for item in items:\n5:         if item not in seen:\n6:             seen.append(item)\n7:             result.append(item)\n8:     return result",
+        "total_lines": 8
+      }
+    },
+    {
+      "action": 3,
+      "response": 3,
+      "tool": "test",
+      "arguments": {},
+      "observation": {
+        "passed": true,
+        "checks": 2,
+        "failures": [],
+        "error": null
+      }
+    },
+    {
+      "action": 4,
+      "response": 4,
+      "tool": "submit",
+      "arguments": {},
+      "observation": {
+        "submitted": true
+      }
+    }
+  ]
+}

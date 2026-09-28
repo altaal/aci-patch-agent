@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "task": "normalize-method",
+  "issue": "Return an HTTP method as text. Decode bytes using ASCII; preserve strings exactly. Reject other types with TypeError. Non-ASCII bytes must raise UnicodeDecodeError.",
+  "created_at": "2026-09-28T23:20:06.497821+00:00",
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "max_actions": 15,
+  "max_total_tokens": 32000,
+  "status": "passed",
+  "passed": true,
+  "submitted": true,
+  "actions": 4,
+  "model_calls": 4,
+  "prompt_tokens": 2555,
+  "completion_tokens": 141,
+  "reported_cost_usd": 0.00038505,
+  "seconds": 4.314,
+  "initial_source": "def normalize_method(method):\n    return str(method)\n",
+  "final_source": "def normalize_method(method):\n    if isinstance(method, bytes):\n        return method.decode('ascii')\n    elif isinstance(method, str):\n        return method\n    else:\n        raise TypeError(\"Expected bytes or str\")\n",
+  "evaluation": {
+    "passed": true,
+    "checks": 8,
+    "failures": [],
+    "error": null
+  },
+  "patch": "--- a/solution.py\n+++ b/solution.py\n@@ -1,2 +1,7 @@\n def normalize_method(method):\n-    return str(method)\n+    if isinstance(method, bytes):\n+        return method.decode('ascii')\n+    elif isinstance(method, str):\n+        return method\n+    else:\n+        raise TypeError(\"Expected bytes or str\")\n",
+  "responses": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_6135f6d7721341d2aae372fe",
+            "function": {
+              "name": "view",
+              "arguments": "{\"start\": 1, \"end\": 2}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 495,
+        "completion_tokens": 24,
+        "total_tokens": 519,
+        "cost": 7.095e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7.095e-05,
+          "upstream_inference_prompt_cost": 4.455e-05,
+          "upstream_inference_completions_cost": 2.64e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637602-tgO6m3uG5fNaxHgYI4D0"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": "\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_88af62233843409484703895",
+            "function": {
+              "name": "edit",
+              "arguments": "{\"start\": 1, \"end\": 2, \"replacement\": \"def normalize_method(method):\\n    if isinstance(method, bytes):\\n        return method.decode('ascii')\\n    elif isinstance(method, str):\\n        return method\\n    else:\\n        raise TypeError(\\\"Expected bytes or str\\\")\"}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 558,
+        "completion_tokens": 89,
+        "total_tokens": 647,
+        "cost": 0.00014812,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00014812,
+          "upstream_inference_prompt_cost": 5.022e-05,
+          "upstream_inference_completions_cost": 9.79e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637603-YPyOEB0w8tZ4Fpwy31VO"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_f12e600e9c3c4e26ae3489b0",
+            "function": {
+              "name": "test",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 727,
+        "completion_tokens": 14,
+        "total_tokens": 741,
+        "cost": 8.083e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.083e-05,
+          "upstream_inference_prompt_cost": 6.543e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637603-ojJvj3naH1HVXdCfgKoZ"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_fe43fb0d80ea4895818c4f58",
+            "function": {
+              "name": "submit",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 775,
+        "completion_tokens": 14,
+        "total_tokens": 789,
+        "cost": 8.515e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.515e-05,
+          "upstream_inference_prompt_cost": 6.975e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637605-y5ePWz6Gw4UMpgdHGh7N"
+    }
+  ],
+  "events": [
+    {
+      "action": 1,
+      "response": 1,
+      "tool": "view",
+      "arguments": {
+        "start": 1,
+        "end": 2
+      },
+      "observation": {
+        "source": "1: def normalize_method(method):\n2:     return str(method)",
+        "total_lines": 2
+      }
+    },
+    {
+      "action": 2,
+      "response": 2,
+      "tool": "edit",
+      "arguments": {
+        "start": 1,
+        "end": 2,
+        "replacement": "def normalize_method(method):\n    if isinstance(method, bytes):\n        return method.decode('ascii')\n    elif isinstance(method, str):\n        return method\n    else:\n        raise TypeError(\"Expected bytes or str\")"
+      },
+      "observation": {
+        "accepted": true,
+        "source": "1: def normalize_method(method):\n2:     if isinstance(method, bytes):\n3:         return method.decode('ascii')\n4:     elif isinstance(method, str):\n5:         return method\n6:     else:\n7:         raise TypeError(\"Expected bytes or str\")",
+        "total_lines": 7
+      }
+    },
+    {
+      "action": 3,
+      "response": 3,
+      "tool": "test",
+      "arguments": {},
+      "observation": {
+        "passed": true,
+        "checks": 2,
+        "failures": [],
+        "error": null
+      }
+    },
+    {
+      "action": 4,
+      "response": 4,
+      "tool": "submit",
+      "arguments": {},
+      "observation": {
+        "submitted": true
+      }
+    }
+  ]
+}

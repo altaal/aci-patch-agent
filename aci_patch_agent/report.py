@@ -18,7 +18,7 @@ def report(directory):
         rows.append(row)
     fields = ["task", "status", "passed", "actions", "model_calls", "prompt_tokens", "completion_tokens", "reported_cost_usd", "seconds"]
     with (directory / "results.csv").open("w", newline="") as output:
-        writer = csv.DictWriter(output, fieldnames=fields, extrasaction="ignore")
+        writer = csv.DictWriter(output, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     solved = sum(bool(r["passed"]) for r in rows)

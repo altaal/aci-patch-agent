@@ -79,7 +79,40 @@ patch, final evaluation, usage and duration), `results.csv`, and `summary.md`.
 The report command regenerates a table offline from these files; it does not rerun
 the model or independently re-grade a saved patch.
 
-The published run and failure analysis will be linked here after live verification.
+## First live result: 3/5 tasks (60%)
+
+One attempt per development task with the default configuration, September 28, 2026.
+All five attempts are preserved, including both exhausted budgets.
+
+| Task | Submitted and passed | Actions | Outcome |
+| --- | --- | ---: | --- |
+| normalize-method | Yes | 4 | All 8 checks passed. |
+| chunked | Yes | 4 | All 8 checks passed. |
+| merge-intervals | No | 15 | Repeated an ineffective edit; final checks failed. |
+| parse-bool | No | 15 | Final code passed 10 checks, but the agent never submitted. |
+| unique-stable | Yes | 4 | All 7 checks passed. |
+
+[Raw traces and settings](results/week1-five-tasks/),
+[CSV](results/week1-five-tasks/results.csv), and
+[failure analysis](FAILURES.md) are committed. No best-attempt selection or repair
+by hand was applied to these results. This tiny development run establishes that
+the loop runs; it does not establish general coding ability or an ACI improvement.
+
+Rebuild the table without a key:
+
+```sh
+python -m aci_patch_agent report results/week1-five-tasks
+```
+
+## What failed / what I learned
+
+On interval merging, the model kept changing the overlap condition while leaving
+the endpoint-shrinking bug in place. On boolean parsing, it produced correct code,
+then continued editing, including a rejected syntax error and repeated code
+insertion. It never submitted. Accurate test feedback and syntax checks are useful,
+but they do not guarantee progress or termination. A code-correctness score alone
+would hide the second failure. The next experiment should change the feedback for
+stalls while holding the model and action budget fixed. See [the traces](FAILURES.md).
 
 ## Check the implementation
 

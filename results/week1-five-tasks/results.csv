@@ -1,0 +1,6 @@
+task,status,passed,actions,model_calls,prompt_tokens,completion_tokens,reported_cost_usd,seconds
+normalize-method,passed,True,4,4,2555,141,0.00038505,4.314
+chunked,passed,True,4,4,2800,172,0.0004412,3.699
+merge-intervals,action_limit,False,15,15,23073,603,0.00273987,14.757
+parse-bool,action_limit,False,15,7,7573,709,0.0014614699999999999,6.556
+unique-stable,passed,True,4,4,2573,129,0.00037347,3.511

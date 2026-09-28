@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "task": "chunked",
+  "issue": "Split a list into consecutive lists of size n, including a shorter final chunk. Empty input returns []. n must be a positive integer; bool is not accepted. Raise TypeError for other n types and ValueError for non-positive n.",
+  "created_at": "2026-09-28T23:20:10.197057+00:00",
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "max_actions": 15,
+  "max_total_tokens": 32000,
+  "status": "passed",
+  "passed": true,
+  "submitted": true,
+  "actions": 4,
+  "model_calls": 4,
+  "prompt_tokens": 2800,
+  "completion_tokens": 172,
+  "reported_cost_usd": 0.0004412,
+  "seconds": 3.699,
+  "initial_source": "def chunked(items, n):\n    return [items[i:i+n] for i in range(0, len(items)-n+1, n)]\n",
+  "final_source": "def chunked(items, n):\n    if not isinstance(n, int) or isinstance(n, bool):\n        raise TypeError(\"n must be an integer but not a boolean\")\n    if n <= 0:\n        raise ValueError(\"n must be a positive integer\")\n    return [items[i:i+n] for i in range(0, len(items), n)]\n",
+  "evaluation": {
+    "passed": true,
+    "checks": 8,
+    "failures": [],
+    "error": null
+  },
+  "patch": "--- a/solution.py\n+++ b/solution.py\n@@ -1,2 +1,6 @@\n def chunked(items, n):\n-    return [items[i:i+n] for i in range(0, len(items)-n+1, n)]\n+    if not isinstance(n, int) or isinstance(n, bool):\n+        raise TypeError(\"n must be an integer but not a boolean\")\n+    if n <= 0:\n+        raise ValueError(\"n must be a positive integer\")\n+    return [items[i:i+n] for i in range(0, len(items), n)]\n",
+  "responses": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_14d95e7e4a3043dbab166e5a",
+            "function": {
+              "name": "view",
+              "arguments": "{\"start\": 1, \"end\": 1}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 529,
+        "completion_tokens": 35,
+        "total_tokens": 564,
+        "cost": 8.611e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.611e-05,
+          "upstream_inference_prompt_cost": 4.761e-05,
+          "upstream_inference_completions_cost": 3.85e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637606-GBzrbkJvD7Inj50NxhE2"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_9ad57ca5a79f450aa2ea4f4d",
+            "function": {
+              "name": "edit",
+              "arguments": "{\"start\": 1, \"end\": 2, \"replacement\": \"def chunked(items, n):\\n    if not isinstance(n, int) or isinstance(n, bool):\\n        raise TypeError(\\\"n must be an integer but not a boolean\\\")\\n    if n <= 0:\\n        raise ValueError(\\\"n must be a positive integer\\\")\\n    return [items[i:i+n] for i in range(0, len(items), n)]\"}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 587,
+        "completion_tokens": 109,
+        "total_tokens": 696,
+        "cost": 0.00017273,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00017273,
+          "upstream_inference_prompt_cost": 5.283e-05,
+          "upstream_inference_completions_cost": 0.0001199
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637607-eM7L25SwrOfu1rQz5bvK"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_33f0777db4014a4190fd6027",
+            "function": {
+              "name": "test",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 818,
+        "completion_tokens": 14,
+        "total_tokens": 832,
+        "cost": 8.902e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.902e-05,
+          "upstream_inference_prompt_cost": 7.362e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637608-rTc8Svp9oyvms8O54qns"
+    },
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_70ca7a7fb7974e64aff0066b",
+            "function": {
+              "name": "submit",
+              "arguments": "{}"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "prompt_tokens": 866,
+        "completion_tokens": 14,
+        "total_tokens": 880,
+        "cost": 9.334e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 9.334e-05,
+          "upstream_inference_prompt_cost": 7.794e-05,
+          "upstream_inference_completions_cost": 1.54e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "model": "qwen/qwen3-next-80b-a3b-instruct",
+      "provider": "DeepInfra",
+      "id": "gen-1790637609-pjjyQUxPdOrzjtonlzZV"
+    }
+  ],
+  "events": [
+    {
+      "action": 1,
+      "response": 1,
+      "tool": "view",
+      "arguments": {
+        "start": 1,
+        "end": 1
+      },
+      "observation": {
+        "source": "1: def chunked(items, n):",
+        "total_lines": 2
+      }
+    },
+    {
+      "action": 2,
+      "response": 2,
+      "tool": "edit",
+      "arguments": {
+        "start": 1,
+        "end": 2,
+        "replacement": "def chunked(items, n):\n    if not isinstance(n, int) or isinstance(n, bool):\n        raise TypeError(\"n must be an integer but not a boolean\")\n    if n <= 0:\n        raise ValueError(\"n must be a positive integer\")\n    return [items[i:i+n] for i in range(0, len(items), n)]"
+      },
+      "observation": {
+        "accepted": true,
+        "source": "1: def chunked(items, n):\n2:     if not isinstance(n, int) or isinstance(n, bool):\n3:         raise TypeError(\"n must be an integer but not a boolean\")\n4:     if n <= 0:\n5:         raise ValueError(\"n must be a positive integer\")\n6:     return [items[i:i+n] for i in range(0, len(items), n)]",
+        "total_lines": 6
+      }
+    },
+    {
+      "action": 3,
+      "response": 3,
+      "tool": "test",
+      "arguments": {},
+      "observation": {
+        "passed": true,
+        "checks": 2,
+        "failures": [],
+        "error": null
+      }
+    },
+    {
+      "action": 4,
+      "response": 4,
+      "tool": "submit",
+      "arguments": {},
+      "observation": {
+        "submitted": true
+      }
+    }
+  ]
+}
