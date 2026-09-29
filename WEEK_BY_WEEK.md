@@ -5,6 +5,22 @@ stages, with a planned budget of **50 focused hours**. Work can finish ahead of 
 calendar; the saved run timestamps show when experiments actually happened. The
 hour budgets below are planning limits, not a claim that those hours were logged.
 
+All six delivery stages now have public code and evidence. Each section explains
+the completed work and gives commands to reproduce it. The implementation and
+experiments were completed early, on September 28, 2026.
+
+| Stage | Delivered | Measured result |
+| --- | --- | --- |
+| W1 | Public agent, README, live demo, five-task evaluation | 3/5 completed repairs |
+| W2 | Ten-task edit comparison, all 60 attempts | Checked 30/30; unchecked 29/30 |
+| W3 | Public recovery repo and ten-attempt pilot | Terse 5/5; actionable 5/5 |
+| W4 | Full recovery comparison and failure analysis | Terse 26/30; actionable 29/30 |
+| W5 | Fifty verified preference pairs and a trained adapter | 40 optimizer steps; weights changed |
+| W6 | Sixty before/after attempts and reproduction checks | Base 0/30; DPO 0/30; no improvement |
+
+Completion means the artifact, experiment, and explanation shipped. It does not
+mean that every intervention improved the model.
+
 ## A. Strategy
 
 Ship three connected public repositories. First, **ACI Patch Agent** proves that
@@ -288,8 +304,13 @@ documented checks from fresh clones; the public commits and release tags are pus
 
 **Delivered evidence:** [before/after results](https://github.com/altaal/agent-edit-dpo/tree/main/results/week6-before-after)
 and [lessons](https://github.com/altaal/agent-edit-dpo/blob/main/FAILURES.md).
-Publish the measured outcome even if it is unchanged or worse. Greedy repetitions
-can be identical; they do not create 30 independent tasks or a confidence interval.
+The final result was **0/30 before training and 0/30 after training**. Every attempt
+used all six actions without submitting; none produced a correct final patch.
+The small model struggled with valid tool arguments and response formatting. The
+single-edit preferences did not produce a working repair agent. The published
+artifact demonstrates the complete pipeline and this negative result, not a
+capability gain. Greedy repetitions can be identical; they do not create 30
+independent tasks or a confidence interval.
 
 **STOP reading until this gate:** new training methods, model-shopping lists,
 portfolio redesign, application guides, and another six-week roadmap. Inspect the
