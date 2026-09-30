@@ -1,5 +1,12 @@
 # Six weeks: build, measure, publish
 
+> Publication copy of the shared six-week plan. In the sibling-project workspace,
+> edit `../WEEK_BY_WEEK.md`, then run `python3 scripts/sync_weekly_guide.py`
+> from `aci-patch-agent` to refresh this copy.
+
+This shared plan covers three sibling projects: ACI Patch Agent (Weeks 1–2),
+Agent Recovery Lab (Weeks 3–4), and Agent Edit DPO (Weeks 5–6).
+
 This guide explains the work in plain language. The week labels are six delivery
 stages, with a planned budget of **50 focused hours**. Work can finish ahead of the
 calendar; the saved run timestamps show when experiments actually happened. The
@@ -106,8 +113,8 @@ python -m aci_patch_agent run --output runs/week1-five
 demo command; all five tasks have saved attempts; the table shows passes/5; the
 failure note points to actual traces.
 
-**Delivered evidence:** [five-task results](results/week1-five-tasks/summary.md),
-[failure notes](FAILURES.md), and [fresh-clone checks](VERIFIED.md). The first run
+**Delivered evidence:** [five-task results](https://github.com/altaal/aci-patch-agent/blob/main/results/week1-five-tasks/summary.md),
+[failure notes](https://github.com/altaal/aci-patch-agent/blob/main/FAILURES.md), and [fresh-clone checks](https://github.com/altaal/aci-patch-agent/blob/main/VERIFIED.md). The first run
 passed **3/5**. One failure repeatedly changed the wrong part of interval merging.
 Another produced a correct boolean parser but never submitted. Those attempts stay
 in the record.
@@ -142,8 +149,8 @@ python -m aci_patch_agent.ablation --output runs/week2-comparison
 conditions use identical task definitions and limits; the README includes a
 ten-task table and the failed example; the offline report reproduces the table.
 
-**Delivered evidence:** [results](results/week2-edit-check/summary.md) and
-[interpretation](EXPERIMENTS.md). Checked edits passed **30/30**; unchecked edits
+**Delivered evidence:** [results](https://github.com/altaal/aci-patch-agent/blob/main/results/week2-edit-check/summary.md) and
+[interpretation](https://github.com/altaal/aci-patch-agent/blob/main/EXPERIMENTS.md). Checked edits passed **30/30**; unchecked edits
 passed **29/30**. The failed transpose run accumulated invalid indentation and
 never submitted. No checked run actually triggered syntax rejection, so the result
 does not prove that the runtime check caused the difference.
