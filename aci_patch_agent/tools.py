@@ -52,6 +52,9 @@ class Workspace:
             if not {"start", "end", "replacement"} <= args.keys() or not isinstance(args["replacement"], str):
                 return {"error": "edit needs start, end, and string replacement. Source unchanged."}
             candidate = "\n".join(lines[:start-1] + args["replacement"].splitlines() + lines[end:]) + "\n"
+            if name == "edit":
+                if candidate == self.source:
+                    return {"accepted": False, "error": "No change. Source unchanged."}
             if len(candidate.encode()) > 16_384:
                 return {"error": "Source exceeds 16 KiB. Source unchanged."}
             if self.checked:
