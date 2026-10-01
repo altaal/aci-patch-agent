@@ -51,7 +51,7 @@ the larger model used in the first two repositories.
 
 The first repo develops the SWE-agent/ACI theme already in progress: tool design,
 line-based editing, test feedback, and completion. It does not need another course
-or a new jetski study map. All code and fixtures are public, independently authored
+or a new study map. All code and fixtures are public, independently authored
 examples. Employer code, private notebooks, and internal work data are not inputs.
 Existing research and production work remain existing evidence; rebuilding them
 is outside this project.
@@ -120,7 +120,7 @@ Another produced a correct boolean parser but never submitted. Those attempts st
 in the record.
 
 **STOP reading until this gate:** CS329A lectures/homework maps, the full SWE-agent
-paper, ACI study maps, jetski prompt collections, and InternalGoogleJobs guides.
+paper, ACI study maps, prompt collections, and job-search guides.
 Open only documentation needed to make the next tool call or Docker command work.
 
 ### Week 2: compare two tool designs fairly
@@ -194,7 +194,7 @@ fault. This establishes a working recovery experiment; the pilot cannot distingu
 the conditions because both reached 100%.
 
 **STOP reading until this gate:** reliability surveys, orchestration frameworks,
-memory systems, multi-agent designs, and jetski prompt expansions. Only inspect
+memory systems, multi-agent designs, and prompt expansions. Only inspect
 the reused agent's tool contract when implementing the two faults.
 
 ### Week 4: measure recovery and explain its limits
