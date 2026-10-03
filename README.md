@@ -9,6 +9,8 @@ to build each week, why it matters, how to run it, and what the measured results
 This repository implements Weeks 1–2. In the sibling-project workspace, the
 canonical editable guide is `../WEEK_BY_WEEK.md`; the linked file is its generated
 publication copy. Refresh it with `python3 scripts/sync_weekly_guide.py`.
+For the current implementation and its module boundaries, read the
+[technical orientation](TECHNICAL_OVERVIEW.md).
 
 ```text
 issue + source -> model -> view / edit / test -> observation -> model

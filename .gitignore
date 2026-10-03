@@ -8,3 +8,4 @@ dist/
 .env.*
 runs/
 .DS_Store
+.cursor/

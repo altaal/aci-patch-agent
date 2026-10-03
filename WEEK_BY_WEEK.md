@@ -28,6 +28,27 @@ experiments were completed early, on September 28, 2026.
 Completion means the artifact, experiment, and explanation shipped. It does not
 mean that every intervention improved the model.
 
+## Reading each exercise: goal first, then code
+
+Every week must say what skill or question it addresses, why it is worth doing,
+exactly what changes from the previous week, and what its evidence can establish.
+An unsurprising hypothesis should be described as such. Completing a pipeline
+does not mean the intervention improved the model.
+
+Detailed source walkthroughs live in each repository:
+
+| Weeks | Walkthrough | Main distinction |
+| --- | --- | --- |
+| 1–2 | [ACI Patch Agent technical overview](https://github.com/altaal/aci-patch-agent/blob/main/TECHNICAL_OVERVIEW.md) | Build the loop, then compare two editor configurations. |
+| 3–4 | [Agent Recovery Lab technical overview](https://github.com/altaal/agent-recovery-lab/blob/main/TECHNICAL_OVERVIEW.md) | Build a fault-injection pilot, then expand and analyze the same experiment. |
+| 5–6 | [Agent Edit DPO technical overview](https://github.com/altaal/agent-edit-dpo/blob/main/TECHNICAL_OVERVIEW.md) | Train an adapter, then measure it against its own base model. |
+
+For subsequent exercises, use the `WEEK_EXERCISE_TEMPLATE.md` beside the canonical
+guide in the sibling-project workspace. Each week needs exact commands, real source
+snippets, one concrete trace or data example, result-file construction, tests, and
+limitations. Preserve earlier outcomes and distinguish saved source versions from
+the current checkout. The project index provides local links to all walkthroughs.
+
 ## A. Strategy
 
 Ship three connected public repositories. First, **ACI Patch Agent** proves that
@@ -85,6 +106,12 @@ the denominator. None of these small public task sets establishes broad capabili
 
 ### Week 1: make one complete agent run public
 
+**Exact goal and value:** Build and inspect one complete model/tool/grading loop. This is an implementation exercise with no claim of a new agent algorithm.
+
+**Difference from the previous week:** Establishes the first working loop: five development tasks, one attempt each.
+
+**Code flow and examples:** [Week 1 walkthrough](https://github.com/altaal/aci-patch-agent/blob/main/TECHNICAL_OVERVIEW.md#week-1-command-code-flow-and-one-result).
+
 **Budget: 8 hours.** Spend roughly 4 hours on the loop and tools, 2 on evaluation,
 and 2 on running, documenting, and publishing it.
 
@@ -125,6 +152,12 @@ Open only documentation needed to make the next tool call or Docker command work
 
 ### Week 2: compare two tool designs fairly
 
+**Exact goal and value:** Practice a controlled editor comparison and check whether the hypothesized guard was actually used. Disabling syntax checks is an experimental baseline, not a demonstrated operating advantage.
+
+**Difference from the previous week:** Reuses the agent, switches to ten evaluation tasks, varies syntax checking and its description, and repeats both modes three times. Scores across Weeks 1 and 2 are not directly comparable because the tasks differ.
+
+**Code flow and examples:** [Week 2 walkthrough](https://github.com/altaal/aci-patch-agent/blob/main/TECHNICAL_OVERVIEW.md#week-2-command-changed-behavior-and-six-clamp-files).
+
 **Budget: 8 hours.** About 2 hours for ten fixed tasks, 3 for the comparison runner,
 and 3 for execution, inspection, and publication.
 
@@ -160,6 +193,12 @@ comparisons, and new course maps. If a code decision needs the original rational
 read only SWE-agent's **Section 3, Agent-Computer Interface**; otherwise read no paper.
 
 ### Week 3: make the agent encounter a recoverable problem
+
+**Exact goal and value:** Build and verify a controlled fault/feedback experiment. The hypothesis is unsurprising; the exercise has limited research value and adds no deeper recovery algorithm. The model receives an explicit recovery hint in one condition.
+
+**Difference from the previous week:** Week 2 varied syntax checking. Both recovery modes keep it enabled; they hide initial source, introduce one-time tool faults, and vary state information plus next-action guidance. Five tasks run once per mode.
+
+**Code flow and examples:** [Week 3 walkthrough](https://github.com/altaal/agent-recovery-lab/blob/main/TECHNICAL_OVERVIEW.md#week-3-exact-command-and-execution-path).
 
 **Budget: 8 hours.** About 3 hours for fault injection, 2 for tests, and 3 for the
 pilot and public second repo.
@@ -199,6 +238,12 @@ the reused agent's tool contract when implementing the two faults.
 
 ### Week 4: measure recovery and explain its limits
 
+**Exact goal and value:** Measure the same recovery experiment on the larger declared matrix and explain the failures honestly. This is expanded measurement and analysis, not a new algorithm.
+
+**Difference from the previous week:** Same wrapper, faults, modes, and model as Week 3. Ten tasks and three repetitions per mode produce 60 attempts, replacing the ten-attempt pilot.
+
+**Code flow and examples:** [Week 4 walkthrough](https://github.com/altaal/agent-recovery-lab/blob/main/TECHNICAL_OVERVIEW.md#week-4-exact-change-to-the-same-path).
+
 **Budget: 8 hours.** About 2 hours for the full run, 3 for trace analysis, and 3 for
 reporting and reproduction checks.
 
@@ -232,6 +277,12 @@ new agent papers, and any report that expands into another study map. Read the s
 failed traces and the code that produces their observations.
 
 ### Week 5: train one small adapter from verified preferences
+
+**Exact goal and value:** Build test-verified preferences and complete one real DPO adapter-training run. Changing weights proves training happened; it does not prove better repairs. This applies an existing training method.
+
+**Difference from the previous week:** Moves from fixed-model feedback experiments to parameter updates on a different, smaller local model. Uses the five Week 1 task families for training and removes recovery fault injection.
+
+**Code flow and examples:** [Week 5 walkthrough](https://github.com/altaal/agent-edit-dpo/blob/main/TECHNICAL_OVERVIEW.md#week-5-goal-and-difference-from-week-4).
 
 **Budget: 10 hours.** About 3 hours for preference data, 2 for an actual training
 smoke test, 3 for one fixed training run, and 2 for artifacts and documentation.
@@ -282,6 +333,12 @@ paper's **Section 4, Equation 7**, plus TRL's `DPOTrainer` usage documentation t
 unblock the actual training call. No second training algorithm.
 
 ### Week 6: compare before and after, then make reproduction easy
+
+**Exact goal and value:** Test whether the Week 5 adapter improves completed repairs on ten different tasks. The saved result is 0/30 in both modes: the pipeline works, but no repair improvement was observed.
+
+**Difference from the previous week:** Stops training, loads the same small model and saved adapter, then compares adapter disabled versus enabled under one shared tool protocol and budget. Produces 60 evaluation traces.
+
+**Code flow and examples:** [Week 6 walkthrough](https://github.com/altaal/agent-edit-dpo/blob/main/TECHNICAL_OVERVIEW.md#week-6-goal-and-difference-from-week-5).
 
 **Budget: 8 hours.** About 3 hours for the fixed comparison, 3 for clean-clone
 checks, and 2 for clear results, releases, and this guide.

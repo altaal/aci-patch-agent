@@ -41,5 +41,5 @@ class OpenRouterClient:
         except error.HTTPError as failure:
             # Provider error bodies may echo requests; never log them or the Authorization header.
             raise ModelError(f"api_http_{failure.code}") from None
-        except (OSError, ValueError, KeyError, IndexError):
+        except (OSError, ValueError, TypeError, KeyError, IndexError):
             raise ModelError("api_transport_or_response_error") from None

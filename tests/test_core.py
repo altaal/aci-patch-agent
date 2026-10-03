@@ -41,6 +41,21 @@ class ToolsTest(unittest.TestCase):
         for start, end in [(0, 1), (2, 100), (True, 2)]:
             with self.subTest(start=start):
                 result = self.workspace.execute("edit", {"start": start, "end": end, "replacement": "pass"})
+                self.assertFalse(result["accepted"])
+                self.assertIn("error", result)
+                self.assertEqual(self.workspace.source, before)
+
+    def test_every_rejected_edit_reports_unchanged_source(self):
+        before = self.workspace.source
+        for args in (
+            [], {"unknown": 1}, {},
+            {"start": 1, "end": 2, "replacement": None},
+            {"start": 1, "end": 2, "replacement": "#" * 16_385},
+            {"start": 1, "end": 2, "replacement": ""},
+        ):
+            with self.subTest(args_type=type(args).__name__):
+                result = self.workspace.execute("edit", args)
+                self.assertFalse(result["accepted"])
                 self.assertIn("error", result)
                 self.assertEqual(self.workspace.source, before)
 
@@ -66,16 +81,45 @@ class LoopTest(unittest.TestCase):
 
     def test_repeated_rejected_edit_stops_run_as_stuck(self):
         same_edit = call("edit", start=2, end=2, replacement="    return str(method)")
-        client = ScriptedClient([same_edit, same_edit, call("submit")])
+        client = ScriptedClient([same_edit, same_edit, same_edit, call("submit")])
 
         result = run_task(TASKS[0], client, FakeSandbox(), max_actions=5)
 
         self.assertEqual(result["status"], "stuck")
-        self.assertEqual(result["actions"], 2)
-        self.assertEqual(result["model_calls"], 2)
+        self.assertEqual(result["actions"], 3)
+        self.assertEqual(result["model_calls"], 3)
+        warning = json.loads(client.requests[2][-1]["content"])
+        self.assertIn("warning", warning)
+        self.assertNotIn("stuck", warning)
         self.assertFalse(result["submitted"])
         self.assertTrue(result["events"][-1]["observation"]["stuck"])
         self.assertEqual(result["final_source"], result["initial_source"])
+
+    def test_rejected_edit_warning_allows_a_corrected_edit(self):
+        same_edit = call("edit", start=2, end=2, replacement="    return (")
+        client = ScriptedClient([
+            same_edit, same_edit,
+            call("edit", start=2, end=2, replacement="    return method"),
+            call("submit"), call("submit"),
+        ])
+
+        result = run_task(TASKS[0], client, FakeSandbox())
+
+        self.assertTrue(result["submitted"])
+        self.assertTrue(result["events"][2]["observation"]["accepted"])
+        self.assertIn("warning", json.loads(client.requests[2][-1]["content"]))
+
+    def test_invalid_and_malformed_edits_use_the_repeat_guard(self):
+        malformed = call("edit")
+        malformed["tool_calls"][0]["function"]["arguments"] = "{"
+        for message in (
+            call("edit", start=0, end=100, replacement="pass"), malformed,
+        ):
+            with self.subTest(message=message):
+                result = run_task(TASKS[0], ScriptedClient([message] * 3), FakeSandbox())
+                self.assertEqual(result["status"], "stuck")
+                self.assertEqual(result["actions"], 3)
+                self.assertEqual(result["final_source"], TASKS[0].source)
 
     def test_submit_does_not_self_certify_success(self):
         result = run_task(TASKS[0], ScriptedClient([call("submit"), call("submit")]), FakeSandbox())
@@ -145,6 +189,70 @@ class LoopTest(unittest.TestCase):
 
 
 class RecoveryTest(unittest.TestCase):
+    def test_invalid_test_call_preserves_failure_memory(self):
+        malformed = call("test")
+        malformed["tool_calls"][0]["function"]["arguments"] = "{"
+        for message in (malformed, call("test", extra=True)):
+            with self.subTest(message=message):
+                client = ScriptedClient([
+                    call("test"), call("edit", start=2, end=2, replacement="    return 'GET'"),
+                    message, call("test"), call("submit"), call("submit"),
+                ])
+
+                result = run_task(TASKS[0], client, FakeSandbox())
+
+                self.assertIn("error", result["events"][2]["observation"])
+                self.assertIn("recovery", result["events"][3])
+                self.assertTrue(result["submitted"])
+
+    def test_alternating_failures_recover_once_then_stop(self):
+        class SourceFailureSandbox(FakeSandbox):
+            def check(self, task, source, *, final=False):
+                result = super().check(task, source, final=final)
+                result["failures"] = [source]
+                return result
+
+        client = ScriptedClient([
+            call("test"), call("edit", start=2, end=2, replacement="    return 'GET'"),
+            call("test"), call("edit", start=1, end=2, replacement=TASKS[0].source),
+            call("test"), call("edit", start=2, end=2, replacement="    return 'GET'"),
+            call("test"),
+        ])
+
+        result = run_task(TASKS[0], client, SourceFailureSandbox())
+
+        self.assertIn("recovery", result["events"][4])
+        self.assertEqual(sum("recovery" in e for e in result["events"]), 1)
+        self.assertEqual(result["status"], "stuck")
+        self.assertEqual(result["actions"], 7)
+        self.assertFalse(result["submitted"])
+
+    def test_completed_pass_or_runner_error_resets_failure_memory(self):
+        for observation in (
+            {"passed": True, "checks": 1, "failures": [], "error": None},
+            {"passed": False, "checks": 1, "failures": [], "error": "execution_timeout"},
+        ):
+            with self.subTest(observation=observation):
+                class InterruptedSandbox(FakeSandbox):
+                    calls = 0
+
+                    def check(self, task, source, *, final=False):
+                        self.calls += 1
+                        if self.calls == 2:
+                            return observation.copy()
+                        return super().check(task, source, final=final)
+
+                client = ScriptedClient([
+                    call("test"), call("edit", start=2, end=2, replacement="    return 'GET'"),
+                    call("test"), call("edit", start=2, end=2, replacement="    return 'POST'"),
+                    call("test"), call("submit"), call("submit"),
+                ])
+
+                result = run_task(TASKS[0], client, InterruptedSandbox())
+
+                self.assertFalse(any("recovery" in e for e in result["events"]))
+                self.assertTrue(result["submitted"])
+
     def test_recovery_preserves_history_budgets_and_example_feedback(self):
         class SeparateFinalSandbox(FakeSandbox):
             def check(self, task, source, *, final=False):
@@ -261,6 +369,37 @@ class RecoveryTest(unittest.TestCase):
         self.assertEqual(result["model_calls"], 3)
         self.assertFalse(result["events"][3]["observation"]["submitted"])
         self.assertTrue(result["submitted"])
+
+
+class SandboxErrorTest(unittest.TestCase):
+    def test_sandbox_failure_retains_trace_and_stops_sandbox_calls(self):
+        for fail_final in (False, True):
+            with self.subTest(fail_final=fail_final):
+                class BrokenSandbox(FakeSandbox):
+                    calls = []
+
+                    def check(self, task, source, *, final=False):
+                        self.calls.append(final)
+                        if final == fail_final:
+                            raise RuntimeError("Container cleanup failed")
+                        return super().check(task, source, final=final)
+
+                sandbox = BrokenSandbox()
+                client = ScriptedClient([
+                    call("view"), call("test"), call("submit"), call("submit"),
+                ])
+
+                result = run_task(TASKS[0], client, sandbox)
+
+                self.assertEqual(result["status"], "sandbox_error")
+                self.assertFalse(result["passed"])
+                self.assertEqual(result["submitted"], fail_final)
+                self.assertEqual(sandbox.calls, [False, True] if fail_final else [False])
+                self.assertEqual(result["events"][0]["tool"], "view")
+                self.assertEqual(result["actions"], 4 if fail_final else 2)
+                self.assertEqual(len(result["responses"]), result["actions"])
+                self.assertIn("Container cleanup failed", result["evaluation"]["error"])
+                json.dumps(result)
 
 
 if __name__ == "__main__":
